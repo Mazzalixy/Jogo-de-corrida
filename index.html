@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corrida na Estrada</title><link rel="stylesheet" href="style.css">
+</head>
+<body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="carro" viewBox="0 0 300 110"><rect x="4" y="30" width="48" height="6" rx="3" fill="currentColor"/><rect x="26" y="34" width="5" height="26" fill="#0a0d18"/><path d="M8 80 L16 62 Q30 52 72 48 L106 30 Q126 22 172 22 Q216 24 234 46 L276 56 Q294 62 294 78 L294 86 L8 86Z" fill="currentColor"/><path d="M114 35 Q130 28 168 29 Q204 31 219 46 L110 46Z" fill="#0b1630"/><path d="M96 54 L292 54 L292 60 L96 60Z" fill="#fff" opacity=".35"/><path d="M270 64 L292 66 L290 72 L268 70Z" fill="#fff4b0"/><circle cx="72" cy="86" r="21" fill="#0a0d18"/><circle cx="72" cy="86" r="11" fill="#9aa7bf"/><circle cx="232" cy="86" r="21" fill="#0a0d18"/><circle cx="232" cy="86" r="11" fill="#9aa7bf"/></symbol></svg>
+<main class="app">
+<header class="topo"><button class="tab voltar" data-tab="home"><span>⮌ Voltar</span></button><div class="hud"><div><small>Pontos</small><b id="tRec">0</b></div><div><small>Moedas</small><b id="moedas">0</b></div><div><small>Jogador</small><b>Piloto</b></div></div></header>
+<section id="home" class="aba ativa"><div class="hero"><div class="cena"><i class="neon n1">NEON</i><i class="neon n2">RACE</i><div class="linhas"></div><div class="chao"></div><svg class="hero-carro" viewBox="0 0 300 110" style="color:#ffb703"><use href="#carro" width="100%" height="100%"/></svg></div><div class="hero-conteudo"><p class="selo">Edição Pro</p><h1>CORRIDA<span>NA ESTRADA</span></h1><p class="sub">Desvie, acelere e domine cada pista.</p>
+<nav class="menu"><button class="tab menu-btn principal" data-tab="corrida"><span>Novo jogo</span></button><button class="tab menu-btn" data-tab="garagem"><span>Garagem</span></button><button class="tab menu-btn" data-tab="loja"><span>Loja</span></button><button class="tab menu-btn" data-tab="criador"><span>Criador de pistas</span></button><button class="tab menu-btn" data-tab="perfil"><span>Perfil do piloto</span></button></nav>
+<div class="resumo"><div><span>Recorde</span><b id="hRec">0</b></div><div><span>Moedas</span><b id="hMoe">0</b></div></div></div></div></section>
+
+<section id="corrida" class="aba">
+<div class="preparo" id="telaInicio"><div class="prep-cab"><h2>Selecionar pista</h2><p>Escolha o circuito, o modo de jogo e comece.</p></div>
+<div class="prep-grid"><div class="lista-pistas" id="listaPistas"></div>
+<aside class="prep-lado"><div class="bloco"><h3>Modo de jogo</h3><div class="opcoes" id="opModo"><button data-modo="infinito" class="chip ativo">Infinita</button><button data-modo="tempo" class="chip">Contra o relógio</button><button data-modo="desafio" class="chip">Desafio</button></div></div>
+<div class="bloco"><h3>Obstáculos</h3><div class="opcoes" id="opObs"><button data-obs="mistos" class="chip ativo">Mistos</button><button data-obs="cones" class="chip">Cones</button><button data-obs="pedras" class="chip">Pedras</button><button data-obs="carros" class="chip">Carros</button></div></div>
+<div class="bloco carro-box"><h3>Seu carro</h3><svg id="carroPrep" viewBox="0 0 300 110" style="color:#ffb703"><use href="#carro" width="100%" height="100%"/></svg><b id="nomePrep"></b></div>
+<p class="dica">◀ ▶ direção · ▲ acelera · ▼ freia · Espaço = nitro · P pausa</p>
+<button class="btn btn-principal" id="btnIniciar">Iniciar corrida</button><button class="btn" id="btnCriar">Criar pista</button></aside></div></div>
+<div class="jogo"><div class="arena">
+<section class="palco"><canvas id="pista" width="480" height="560"></canvas>
+
+<div class="painel-tela" id="telaFim" hidden><h2>Fim de corrida</h2><div class="placar-final"><span>Pontuação</span><strong id="pontosFinal">0</strong></div><div class="resultado" id="resumoFinal"></div><p id="recordeMsg"></p><button class="btn btn-principal" id="btnReiniciarFim">Jogar de novo</button><button class="btn" id="btnMenuFim">Menu principal</button></div>
+<div class="painel-tela" id="telaPausa" hidden><h2>Pausado</h2><p>Pressione P ou toque em continuar.</p><button class="btn btn-principal" id="btnContinuar">Continuar</button><button class="btn" id="btnMenuPausa">Menu principal</button></div>
+<div class="evento" id="evento"></div>
+</section>
+<aside class="lado"><div class="barra-jogo"><button class="ib" id="btnMenuJogo">Menu</button><button class="ib" id="btnPausar">Pausar</button><button class="ib" id="btnReiniciar">Reiniciar</button><button class="ib" id="btnTela">Tela cheia</button><button class="ib" id="btnSom">Som: ligado</button><div class="chips-jogo"><span>Recorde<b id="recorde">0</b></span><span>Tempo<b id="tempo">0s</b></span><span>Nível<b id="nivel">1</b></span></div></div><div class="legenda"><span><kbd>▲</kbd> Acelera</span><span><kbd>▼</kbd> Freia</span><span><kbd>◀ ▶</kbd> Direção</span><span><kbd>Espaço</kbd> Nitro</span><span><kbd>P</kbd> Pausa</span></div></aside>
+</div></div>
+<div class="toque"><button data-tecla="esq">◀</button><div class="toque-meio"><button data-tecla="cima">▲</button><button data-tecla="baixo">▼</button></div><button data-tecla="dir">▶</button><button data-tecla="nitro" class="btn-nitro">N</button></div>
+</section>
+
+<section id="garagem" class="aba"><div class="garagem-grid"><div class="painel"><h2>Garage</h2><h3>Carros</h3><div class="cards" id="carros"></div></div><div class="col-dir"><div class="preview-box"><svg id="carroGrande" class="grande" viewBox="0 0 300 110" style="color:#ffb703"><use href="#carro" width="100%" height="100%"/></svg><b class="nome" id="nomeCarro"></b></div><div class="painel"><h2>Customização</h2><h3>Pintura</h3><div class="cores" id="cores"></div></div></div></div></section>
+<section id="loja" class="aba"><div class="painel"><h2>Loja</h2><p class="saldo">Saldo: <b id="saldoLoja">0</b></p><div class="cards" id="itensLoja"></div></div></section>
+<section id="criador" class="aba"><div class="painel"><h2>Criador de pistas</h2><p class="muted">Ajuste os parâmetros e veja a dificuldade mudar.</p><div class="editor">
+<label>Nome<input id="cNome" maxlength="24" placeholder="Minha pista"></label>
+<label>Cenário<select id="cTema"><option value="campo">Campo</option><option value="litoral">Litoral</option><option value="deserto">Deserto</option><option value="cidade">Cidade</option></select></label>
+<label>Quantidade de obstáculos <b id="vDens"></b><input type="range" id="cDens" min="0.8" max="2.4" step="0.1" value="1.2"></label>
+<label>Velocidade <b id="vSpd"></b><input type="range" id="cSpd" min="0.8" max="1.4" step="0.05" value="1"></label>
+<label>Largura da pista <b id="vRw"></b><input type="range" id="cRw" min="200" max="280" step="10" value="260"></label>
+<div>Dificuldade: <span id="cDif" class="dif"></span></div><button class="btn btn-principal" id="cSalvar">Salvar pista</button></div>
+<h3>Minhas pistas</h3><div class="cards" id="cLista"></div></div></section>
+<section id="perfil" class="aba"><div class="painel"><h2>Perfil do piloto</h2><div class="stats" id="statsPerfil"></div><h3>Conquistas</h3><div class="conquistas" id="conquistas"></div><h3>Recordes</h3><div id="recordesLista"></div></div></section>
+<footer><span><kbd>Esc</kbd> Voltar</span><span><kbd>Enter</kbd> Selecionar</span><span><kbd>Espaço</kbd> Nitro</span><span><kbd>P</kbd> Pausar</span></footer>
+</main><script src="script.js"></script>
+</body></html>
